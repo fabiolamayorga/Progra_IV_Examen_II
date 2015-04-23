@@ -8,13 +8,16 @@ $precio = "";
 $codigo_categoria = "";
 $descripcion = "";
 $descuento = "";
-$cantidad = $_POST["cantidad"];
+$cantidad = "";
 $nombre_empleado = "";
 $disponible = "";
 $total_acumulado = "";
 
+//echo $codigo_articulo;
+
 try{
-	$query = mysql_query("SELECT descripcion, precio, descuento, codigo_categoria, disponible FROM inventario where codigo_articulo='$codigo_articulo and numero_factura=$numero_factura'",$conexion);
+	$query = mysql_query("SELECT fecha_factura, cantidad, descuento, total_detalle, codigo_persona FROM ventas where codigo_articulo='$codigo_articulo' and numero_factura='$numero_factura'",$conexion);
+	echo $query;
 	//$queryEmpleado = mysql_query("SELECT nombre FROM personal where codigo_empleado = '$codigo_empleado'", $conexion);
 	//$queryFactura = mysql_query("SELECT SUM(total_detalle) AS 'Total_Acumulado' FROM ventas WHERE numero_factura = '$num_factura'", $conexion);
 	//echo $cantidad;
@@ -22,28 +25,22 @@ try{
 		throw new Exception (mysql_error($query));
 	}else{
 		while($row = mysql_fetch_array($query)){
-			if( intval($cantidad) > intval($row['disponible']) ){
-				$mensaje = "No hay suficientes cantidades en la reserva";
-				echo "No hay suficientes cantidades en la reserva";
-			}else{
-				$descripcion = $row['descripcion'];
-				$codigo_categoria = $row['codigo_categoria'];
-				$precio = $row['precio'];
-				$descuento = $row['descuento'];
-				$disponible = $row['disponible'];
-			}
+			$fecha_factura = $row['fecha_factura'];
+			$cantidad = $row['cantidad'];
+			$descuento = $row['descuento'];
+			$total_detalle = $row['total_detalle'];
+			
 		}
 	}
 
 
    echo json_encode(array(
-            'descripcion' => $descripcion,
-            'codigo_categoria' => $codigo_categoria,
+            'numero_factura' => $numero_factura,
+            'codigo_articulo' => $codigo_articulo,
+            'fecha_factura' => $fecha_factura,
+            'cantidad' => $cantidad,
             'descuento' => $descuento,
-            'precio' => $precio,
-            'nombre_empleado' => $nombre_empleado,
-            'disponible' => $disponible,
-            'total_acumulado' => $total_acumulado 
+            'total_detalle' => $total_detalle
 
     ));
 }catch(Exception $e){

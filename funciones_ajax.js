@@ -44,22 +44,23 @@ function buscar_descuento(){
 };
 
 function buscar_factura(){
-    /*if (window.XMLHttpRequest) {
+    if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log(xmlhttp.responseText);
             var data = JSON.parse(xmlhttp.responseText);
-
+            console.log(data);
         }
-    }*/
+    }
 
     var numero_factura = document.getElementById("numero_factura").value;
     var codigo_articulo = document.getElementById("codigo_articulo").value;
 
-    console.log( numero_factura);
+    //console.log( numero_factura);
 
     xmlhttp.open("POST","busqueda_factura.php",true);
 
