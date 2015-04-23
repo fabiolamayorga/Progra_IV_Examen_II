@@ -37,7 +37,7 @@ include_once("ventas.php");
 
 <body>
 	<table align="center">
-		<form action="formulario_insertar.php" method="post">
+		<form action="formulario_insertar.php" method="post" onkeypress="return false">
 			<tr>
 				<td>Numero factura:</td>
 				<td><input type="text" name="numero_factura" id="numero_factura"></td>
@@ -79,10 +79,10 @@ include_once("ventas.php");
 			</tr>
 			<tr>
 				<td>Descuento:</td>
-				<td><input type="text" name="descuento" id="descuento" readonly onkeypress="calcular_descuento"/></td>
+				<td><input type="text" name="descuento" id="descuento" readonly onkeydown="calcular_descuento"/></td>
 			</tr>
 			<tr align="center">
-				<td><input type="button" value="Enviar" onclick="verificar_espacios()"/></td>
+				<td><input type="submit" value="Enviar" onclick="verificar_espacios()"/></td>
 			</tr>
 		</form>
 	</table>

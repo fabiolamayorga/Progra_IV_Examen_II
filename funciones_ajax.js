@@ -26,9 +26,6 @@ function buscar_descuento(){
                 document.getElementById("total_detalle").value = total_detalle;
                 document.getElementById("total_acumulado").value = parseFloat(data.total_acumulado) + total_detalle;
 
-
-
-
             }
         }
 
@@ -45,6 +42,30 @@ function buscar_descuento(){
 	//}
 
 };
+
+function buscar_factura(){
+    /*if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var data = JSON.parse(xmlhttp.responseText);
+
+        }
+    }*/
+
+    var numero_factura = document.getElementById("numero_factura").value;
+    var codigo_articulo = document.getElementById("codigo_articulo").value;
+
+    console.log( numero_factura);
+
+    xmlhttp.open("POST","busqueda_factura.php",true);
+
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlhttp.send("numero_factura=" + numero_factura + "&codigo_articulo="+ codigo_articulo);
+}
 
 function verificar_espacios(){
     alert();
