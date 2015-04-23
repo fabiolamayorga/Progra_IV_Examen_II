@@ -18,10 +18,6 @@ try{
     echo json_encode(array(
    		'nombre' => $nombre_empleado
    	));
-
-
-
-
 }catch(Exception $e){
 	      throw new Exception($e->getMessage());
 }
