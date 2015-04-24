@@ -1,7 +1,7 @@
 <?php
 require_once("conexion.php");
 
-$codigo_empleado= $_POST["codigo_empleado"];
+$codigo_empleado= $_GET["codigo_empleado"];
 $nombre_empleado = "";
 
 try{

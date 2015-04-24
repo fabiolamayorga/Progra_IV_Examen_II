@@ -23,16 +23,16 @@ try{
 		throw new Exception (mysql_error($query));
 	}else{
 		while($row = mysql_fetch_array($query)){
-			if( intval($cantidad) > intval($row['disponible']) ){
+			/*if( intval($cantidad) > intval($row['disponible']) ){
 				$mensaje = "No hay suficientes cantidades en la reserva";
 				echo "No hay suficientes cantidades en la reserva";
-			}else{
+			}else{*/
 				$descripcion = $row['descripcion'];
 				$codigo_categoria = $row['codigo_categoria'];
 				$precio = $row['precio'];
 				$descuento = $row['descuento'];
 				$disponible = $row['disponible'];
-			}
+			//}
 		}
 	}
 
