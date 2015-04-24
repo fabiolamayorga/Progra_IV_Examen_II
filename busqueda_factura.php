@@ -30,7 +30,10 @@ try{
 			  personal.nombre,
 			  personal.codigo_empleado
 			  FROM ventas, inventario, personal
-			  where ventas.codigo_articulo = '$codigo_articulo' and ventas.numero_factura = '$numero_factura' and inventario.codigo_articulo = ventas.codigo_articulo and ventas.codigo_persona = personal.codigo_empleado  
+			  where ventas.codigo_articulo = '$codigo_articulo' 
+			  and ventas.numero_factura = '$numero_factura' 
+			  and inventario.codigo_articulo = ventas.codigo_articulo 
+			  and ventas.codigo_persona = personal.codigo_empleado  
 			  ";
 
 	$query = mysql_query($consulta,$conexion) or die(mysql_error());

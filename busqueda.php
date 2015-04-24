@@ -46,10 +46,14 @@ try{
 
 	if (!$queryFactura){
 		throw new Exception (mysql_error($queryFactura));
+
 	}else{
 		while($row = mysql_fetch_array($queryFactura)){
-			$total_acumulado = $row['Total_Acumulado'];
-			//echo $total_acumulado;
+
+			if ($row['Total_Acumulado'] == ""){
+				$total_acumulado = 0;
+			}else{
+			$total_acumulado = $row['Total_Acumulado'];}
 		}
 	}
 

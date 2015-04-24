@@ -77,8 +77,6 @@ function buscar_factura(){
     var numero_factura = document.getElementById("numero_factura").value;
     var codigo_articulo = document.getElementById("codigo_articulo").value;
 
-    //console.log( numero_factura);
-
     xmlhttp.open("GET","busqueda_factura.php?numero_factura=" + numero_factura + "&codigo_articulo="+ codigo_articulo ,true);
 
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -86,12 +84,22 @@ function buscar_factura(){
 };
 
 function verificar_espacios(){
-    alert();
-
+    var elementos = document.getElementsByClassName('requerido');
+    for (var i=0; elementos.length>i; i++){
+        console.log(elementos[i].value);
+        if(elementos[i].value == ""){
+            return false;
+        }else return true;
+    }
 };
 
 function enviar_form(){
-    document.getElementById("formulario").submit();
+    if (verificar_espacios() !== false ){
+        document.getElementById("formulario").submit();
+
+    }else{
+        alert("No puede dejar espacios en blanco");
+    }
 };
 
 function calcular_descuento(){
@@ -122,16 +130,10 @@ function buscar_empleado(){
                 var data = JSON.parse(xmlhttp.responseText);
                 console.log(data);
                 document.getElementById("nombre_persona").value = data.nombre;
-                //document.getElementById("codigo_empleado").value = data.codigo_empleado;
-
-
             }
         }
 
         var codigo_empleado = document.getElementById("codigo_empleado").value;
-        //var codigo_articulo = document.getElementById("codigo_articulo").value;
-
-        //console.log( numero_factura);
 
         xmlhttp.open("GET","busqueda_empleado.php?codigo_empleado=" + codigo_empleado,true);
 
@@ -139,5 +141,47 @@ function buscar_empleado(){
         xmlhttp.send();
     }
 };
+
+function buscar_fecha(){
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                console.log(xmlhttp.responseText);
+                var data = JSON.parse(xmlhttp.responseText);
+                var table = "<tr><th>Nombre</th><th>Codigo empleado</th><th>Descripcion</th></tr>";
+                var itemObj;
+                var item;
+                console.log(data.factura);
+                for (var i=0; data.factura.length>i; i++){
+                    table += "<tr><td>"+ data.factura[i].nombre + "</td><td>"+ data.factura[i].codigo_empleado+"</td><td>"+ data.factura[i].descripcion +"</td></tr>";
+                }
+                console.log(table);
+                document.getElementById("result").innerHTML = table;
+
+
+            }
+        }
+
+        var numero_factura= document.getElementById("numero_factura").value;
+        var fecha_factura = document.getElementById("fecha_factura").value;
+
+
+        xmlhttp.open("POST","busqueda_fecha.php",true);
+
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlhttp.send("fecha_factura=" + fecha_factura + "&numero_factura="+ numero_factura);
+};
+
+function limpiar_pantalla(){
+    var elementos = document.getElementsByClassName('requerido');
+    for (var i=0; elementos.length>i; i++){
+        //console.log(elementos[i].value);
+        elementos[i].value = "";
+    }   
+}
 
 
