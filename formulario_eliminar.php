@@ -3,15 +3,15 @@ $mensaje = "";
 require_once("conexion.php");
 include_once("ventas.php");
 
-	if( (isset($_POST['numero_factura'], $_POST['codigo_articulo'], $_POST['cantidad'], $_POST['total_detalle'], $_POST['codigo_persona'] )) ){
+	if( (isset($_POST['numero_factura'], $_POST['codigo_articulo'] )) ){
 		try{
 			$ventas = new ventas;
 			$numero_factura = $_POST['numero_factura'];
 			$codigo_articulo = $_POST['codigo_articulo'];
-			$cantidad = $_POST['cantidad'];
+			/*$cantidad = $_POST['cantidad'];
 			$total_detalle = $_POST['total_detalle'];
-			$codigo_empleado = $_POST['codigo_persona'];
-			$ventas->modificar($numero_factura,$codigo_articulo,$cantidad,$total_detalle, $codigo_empleado, $conexion);
+			$codigo_empleado = $_POST['codigo_persona'];*/
+			$ventas->eliminar($numero_factura,$codigo_articulo, $conexion);
 			$mensaje = $ventas->mensaje;
 		}catch (Exception $e){
 			$mensaje = $e->GetMessage();
@@ -33,7 +33,7 @@ include_once("ventas.php");
 <body>
 	<p>Ingrese el numero de factura y codigo de articulo para modificar</p>
 	<table align="center">
-		<form action="formulario_modificar.php" method="post" id="formulario">
+		<form action="formulario_eliminar.php" method="post" id="formulario">
 			<tr>
 				<td>Numero factura:</td>
 				<td><input type="text" name="numero_factura" id="numero_factura"/></td>
@@ -60,7 +60,7 @@ include_once("ventas.php");
 			</tr>
 			<tr>
 				<td>Cantidad:</td>
-				<td><input type="text" name="cantidad" id="cantidad" onkeypress="calcular_descuento()"/></td>
+				<td><input type="text" name="cantidad" id="cantidad"/></td>
 			</tr>
 			<tr>
 				<td>Total detalle:</td>
@@ -83,7 +83,7 @@ include_once("ventas.php");
 			<tr>
 			  <td colspan="2" align="center">&nbsp;&nbsp;
 			    <input type="button" value="Buscar" name="Buscar" id="Buscar" onclick="buscar_factura();" />
-			    &nbsp;&nbsp;<input type="button" value="Actualizar" name="Actualizar" id="Actualizar" onclick="enviar_form();"/>
+			    &nbsp;&nbsp;<input type="button" value="Eliminar" name="Eliminar" id="Eliminar" onclick="enviar_form();"/>
 			    &nbsp;&nbsp;<input type="button" value="Cancelar" name="Cancelar" id="Cancelar" onclick="limpiar_pantalla();" /> 
 			</tr>
 		</form>

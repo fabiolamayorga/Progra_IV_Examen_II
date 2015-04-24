@@ -48,12 +48,22 @@ public $codigo_persona;
 	}
 	
 
-	function eliminar($numero_factura, $codigo_persona, $conexion){
+	function eliminar($numero_factura, $codigo_articulo, $conexion){
 		try{
 			$query = mysql_query("delete from ventas where 	
 	    						 numero_factura = ".$numero_factura." AND
-								 codigo_persona = ".$codigo_persona."",$conexion);
-		}
+								 codigo_articulo = ".$codigo_articulo."",$conexion);
+		
+			if (!$query)
+			{
+			 throw new Exception(mysql_error()); 
+			}	
+			$this->mensaje = 'El registro se elimino correctamente';
+			return $query;
+			}catch(Exception $e){
+			    throw new Exception($e->getMessage());
+			}
+				 
 	}
 }
 
